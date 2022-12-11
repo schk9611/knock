@@ -16,9 +16,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # o-auth 관련
-    "django.contrib.site",
     # app
+    "post",
+    "project",
+    "study",
+    "user",
     # third party
     "rest_framework",
     "rest_framework_simplejwt",
@@ -84,7 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Aisa/Seoul"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
