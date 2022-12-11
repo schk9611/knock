@@ -18,8 +18,8 @@ class Post(models.Model):
     ]
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    crew = models.ManyToManyField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    dev_tag = models.ManyToManyField(DevStack, on_delete=models.CASCADE)
+    crew = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    dev_tag = models.ManyToManyField(DevStack)
     post_type = models.CharField(max_length=2, choices=POST_TYPE)
     meet_type = models.CharField(max_length=2, choices=MEET_TYPE)
     location_info = models.CharField(max_length=100, blank=True)

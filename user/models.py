@@ -59,7 +59,7 @@ class User(AbstractBaseUser):
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    dev_stack = models.ManyToManyField(DevStack, on_delete=models.CASCADE, blank=True)
+    dev_stack = models.ManyToManyField(DevStack, blank=True)
     nick_name = models.CharField(max_length=100)
     profile_image = models.ImageField(upload_to="", blank=True)
     bio = models.CharField(max_length=100, blank=True)

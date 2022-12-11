@@ -11,7 +11,7 @@ class Position(models.Model):
 
 class ProjectInfo(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    position = models.ManyToManyField(Position, on_delete=models.CASCADE)
+    position = models.ManyToManyField(Position)
 
     class Meta:
         db_table = "project_info"
