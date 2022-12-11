@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+AUTH_USER_MODEL = "user.User"
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
@@ -56,7 +58,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE"),
@@ -67,7 +68,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT"),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,8 +92,6 @@ USE_I18N = True
 
 USE_TZ = False
 
-
 STATIC_URL = "static/"
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
