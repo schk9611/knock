@@ -9,6 +9,8 @@ class DevStack(models.Model):
     class Meta:
         db_table = "dev_stack"
 
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     POST_TYPE = [
@@ -29,6 +31,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to="", blank=True)
+    is_public = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "post"
