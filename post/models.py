@@ -36,3 +36,15 @@ class Post(models.Model):
 
     class Meta:
         db_table = "post"
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_date = models.DateField(auto_now_add=True)
+    
+    class Meta:
+        db_table = "comment"
+
+    def __str__(self):
+        return f"{self.post} / {self.author} / {self.content}"
