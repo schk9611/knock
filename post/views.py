@@ -14,11 +14,11 @@ class GenericPostModelViewSet(ModelViewSet):
     serializer_class = GenericPostSerializer
     
     @action(detail=False, methods=["GET"])
-    def public(self, request):
+    def active(self, request):
         """
-        is_public 필드값이 True인 글들만 리스트 합니다.
+        is_active 필드값이 True인 글들만 리스트 합니다.
         """
-        qs = self.queryset.filter(is_public=True)
+        qs = self.queryset.filter(is_active=True)
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
 
