@@ -31,8 +31,20 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to="", blank=True)
-    is_public = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "post"
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_date = models.DateField(auto_now_add=True)
+    
+    class Meta:
+        db_table = "comment"
+
+    def __str__(self):
+        return f"{self.post} / {self.author} / {self.content}"
