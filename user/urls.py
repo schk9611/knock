@@ -5,7 +5,7 @@ from .views import UserViewSet, google_login, google_callback, GoogleLogin
 
 
 router = routers.DefaultRouter()
-router.register("user", UserViewSet)
+router.register("", UserViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
