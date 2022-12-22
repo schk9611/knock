@@ -17,6 +17,7 @@ from .serializers import UserSerializer
 state = os.environ.get("STATE")
 BASE_URL = "http://127.0.0.1:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "user/google/callback/"
+KAKAO_CALLBACK_URI = BASE_URL + "user/kakao/callback/"
 
 
 def google_login(request):
@@ -90,6 +91,13 @@ def google_callback(request):
         accept_json = accept.json()
         accept_json.pop("user", None)
         return JsonResponse(accept_json)
+
+
+def kakao_login(request):
+    rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={KAKAO_CALLBACK_URI}&response_type=code"
+    )
 
 
 class GoogleLogin(SocialLoginView):
