@@ -15,7 +15,7 @@ from .serializers import UserSerializer
 
 
 state = os.environ.get("STATE")
-BASE_URL = "http://localhost:8000/"
+BASE_URL = "http://127.0.0.1:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "user/google/callback/"
 
 
@@ -32,18 +32,16 @@ def google_login(request):
 
 
 def google_callback(request):
-    print("ok")
     client_id = os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID")
     client_secret = os.environ.get("SOCIAL_AUTH_GOOGLE_SECRET")
     code = request.GET.get("code")
 
-    # Access Token Request
+    # 받은 코드로 구글에 access token 요청
     token_req = requests.post(
         f"https://oauth2.googleapis.com/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={GOOGLE_CALLBACK_URI}&state={state}"
     )
     token_req_json = token_req.json()
     error = token_req_json.get("error")
-    print(error)
     if error is not None:
         raise JSONDecodeError(error)
     access_token = token_req_json.get("access_token")
