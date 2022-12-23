@@ -7,6 +7,7 @@ from json.decoder import JSONDecodeError
 from rest_framework import viewsets, status
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google import views as google_view
+from allauth.socialaccount.providers.kakao import views as kakao_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
@@ -173,6 +174,12 @@ def kakao_callback(request):
 class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
     callback_url = GOOGLE_CALLBACK_URI
+    client_class = OAuth2Client
+
+
+class KakaoLogin(SocialLoginView):
+    adapter_class = kakao_view.KakaoOAuth2Adapter
+    callback_url = KAKAO_CALLBACK_URI
     client_class = OAuth2Client
 
 
