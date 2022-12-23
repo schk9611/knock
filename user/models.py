@@ -52,15 +52,15 @@ class User(AbstractBaseUser):
     def __str__(self):
         return f"email: {self.email}"
 
-    @property
-    def is_staff(self):
-        return self.is_admin
-
     def has_perm(self, perm, obj=None):
         return True
 
-    def has_module_perm(self, app_label):
+    def has_module_perms(self, app_label):
         return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
 
 
 class UserProfile(models.Model):
