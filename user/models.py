@@ -56,6 +56,12 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perm(self, app_label):
+        return True
+
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
