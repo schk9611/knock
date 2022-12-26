@@ -1,30 +1,33 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
+from rest_framework import status
 from .models import Post
-from .serializers import GenericPostSerializer
+from .serializers import GenericPostSerializer, PostCreateSerializer
 
 
 class GenericPostModelViewSet(ModelViewSet):
-    '''
+    """
     localhost/post/public/
     localhost/post/<int:pk>/
-    '''
+    """
+
     queryset = Post.objects.all()
     serializer_class = GenericPostSerializer
-    
-    @action(detail=False, methods=["GET"])
-    def public(self, request):
-        """
-        is_public 필드값이 True인 글들만 리스트 합니다.
-        """
-        qs = self.queryset.filter(is_public=True)
-        serializer = self.get_serializer(qs, many=True)
-        return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        """ModelViewSet create 매서드"""
+        serializer = PostCreateSerializer(data=request.data)
+        # create시 사용하는 serializer
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            {"data": serializer.data}, status=status.HTTP_201_CREATED, headers=headers
+        )
 
     def perform_create(self, serializer):
         """
         해당 유저정보를 form, json을 통하지 않고 request 통해 저장
         """
         serializer.save(author=self.request.user)
-
