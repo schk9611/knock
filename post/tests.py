@@ -41,3 +41,8 @@ class GenericPostModelViewSetTest(APITestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
        
     
+    def test_post_retrieve(self):
+        '''GenericPostModelViewSet GET(RETRIEVE) 메소드 검증'''
+
+        response = self.client.get(reverse("post-detail", kwargs={"pk": 1}))
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
