@@ -19,7 +19,7 @@ class GenericPostModelViewSetTest(APITestCase):
 
         self.client.login(email="test@test.com", password="0000")
 
-    def test_posting_create(self):
+    def test_post_create(self):
         '''GenericPostModelViewSet POST 메소드 검증'''
         data = {
             "post_type": "ST",
@@ -33,3 +33,11 @@ class GenericPostModelViewSetTest(APITestCase):
 
         response = self.client.post(reverse("post-list"), data, format="json")
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+    
+    def test_post_list(self):
+        '''GenericPostModelViewSet GET(LIST) 메소드 검증'''
+
+        response = self.client.get(reverse("post-list"))
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+       
+    
