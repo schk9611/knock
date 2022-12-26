@@ -8,16 +8,22 @@ from .serializers import GenericPostSerializer, PostCreateSerializer
 
 class GenericPostModelViewSet(ModelViewSet):
     """
-    localhost/post/public/
+    localhost/post/
     localhost/post/<int:pk>/
     """
 
     queryset = Post.objects.all()
-    serializer_class = GenericPostSerializer
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return GenericPostSerializer
+        if self.action == "create":
+            return PostCreateSerializer
+        return GenericPostSerializer
 
     def create(self, request, *args, **kwargs):
         """ModelViewSet create 매서드"""
-        serializer = PostCreateSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         # create시 사용하는 serializer
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
